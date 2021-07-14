@@ -12,6 +12,7 @@ public interface AccountRepository extends MongoRepository<Account,String> {
 
 
     List<Account> findAll();
+    Account findAccountById(String id);
     Account save(Account account);
 }
 

@@ -12,7 +12,6 @@ import java.util.List;
 public interface ArchiveRepository extends MongoRepository<Archive, String> {
 
     List<Archive> findAllByUserIdEquals(String userId);
-
     Archive save(Archive archive);
-
+    List<Archive> deleteAllByUserId(String username);
 }

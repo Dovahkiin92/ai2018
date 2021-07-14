@@ -38,4 +38,12 @@ public class ArchiveService {
     public List<Archive> findOwnedArchives(String username) {
         return archiveRepository.findAllByUserIdEquals(username);
     }
+
+    public List<Archive> findUserArchives(String username) {
+        return archiveRepository.findAllByUserIdEquals(username);
+    }
+
+    public List<Archive> deleteUserArchives(String username) {
+        return archiveRepository.deleteAllByUserId(username);
+    }
 }

@@ -3,6 +3,7 @@ package com.Ai2018.ResourceServer.services;
 import com.Ai2018.ResourceServer.models.Account;
 import com.Ai2018.ResourceServer.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.AccountException;
+import java.util.List;
 
 @Service
 public class AccountService implements UserDetailsService {
@@ -42,5 +44,20 @@ public class AccountService implements UserDetailsService {
         } else {
             throw new Exception("Account does not exist");
         }
+    }
+
+    public List<Account> findAll() {
+        return accountRepository.findAll();
+    }
+
+    public Account findAccountById(String userId) throws Exception{
+        Account a;
+        a = accountRepository.findAccountById(userId);
+        if(a == null) throw new Exception("Account not found.");
+        return a;
+    }
+
+    public void grantRole(Account account, String role) {
+        account.grantAuthority(role) ;
     }
 }

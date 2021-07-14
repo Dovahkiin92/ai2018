@@ -18,7 +18,7 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping(path = "/account", produces = "application/json" )
-    public Account me() {
+    public Account account() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return accountService.loadUserByUsername(username);
     }
