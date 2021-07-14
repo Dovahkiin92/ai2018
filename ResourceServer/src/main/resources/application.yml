@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      database: datamarketplace
+      host: 192.168.99.102
+      port: 27017
+  security:
+    resourceserver:
+      signing_key: 95kbqeW01lRyw4NslcaUSghSpHVyfLgb4GOEJ9pWJyLtcyT8mfRgtJWEvV2mRI0JIytE72Lk4z70TQ1W
+logging:
+  level:
+    org.springframework.root: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.data.mongodb: DEBUG
