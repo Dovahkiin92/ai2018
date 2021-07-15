@@ -20,7 +20,7 @@ public class Position implements Comparable<Position> {
     private GeoJsonPoint point;
     private long timestamp;
     private String userId;
-
+    public Position(){}
     @JsonCreator
     public Position(
             @JsonProperty(value = "longitude", required = true) @NotNull double longitude,
