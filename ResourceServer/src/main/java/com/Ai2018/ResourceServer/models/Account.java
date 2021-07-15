@@ -37,6 +37,10 @@ public class Account implements UserDetails {
         this.authorities.add(new SimpleGrantedAuthority(authority));
         return this.authorities;
     }
+    public Collection<? extends GrantedAuthority> revokeAuthority(String authority) {
+        this.authorities.remove(new SimpleGrantedAuthority(authority));
+        return this.authorities;
+    }
 
     @Override
     public String getPassword() {

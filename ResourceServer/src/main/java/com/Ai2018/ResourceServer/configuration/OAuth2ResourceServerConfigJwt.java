@@ -27,8 +27,9 @@ public class OAuth2ResourceServerConfigJwt extends ResourceServerConfigurerAdapt
     public void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
                 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                        .and().authorizeRequests().antMatchers("/me").hasAuthority("USER")
-                        .and().authorizeRequests().antMatchers("archives/**").hasAuthority("USER")
+                        .and().authorizeRequests().antMatchers("/account").hasAuthority("USER")
+                        .and().authorizeRequests().antMatchers("/archives/**").hasAuthority("USER")
+                        .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
         // @formatter:on                

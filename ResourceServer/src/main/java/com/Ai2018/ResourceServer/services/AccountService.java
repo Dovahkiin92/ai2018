@@ -50,14 +50,27 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findAll();
     }
 
-    public Account findAccountById(String userId) throws Exception{
+    public Account findAccountByUsername(String username) throws Exception{
         Account a;
-        a = accountRepository.findAccountById(userId);
+        a = accountRepository.findAccountByUsername(username);
         if(a == null) throw new Exception("Account not found.");
         return a;
     }
 
-    public void grantRole(Account account, String role) {
-        account.grantAuthority(role) ;
+    public void grantRole(Account account, String role) throws Exception{
+        if(!role.equalsIgnoreCase("admin") &&
+                !role.equalsIgnoreCase("user") &&
+                !role.equalsIgnoreCase("admin")){
+            throw new Exception("Invalid role");
+        }
+        account.grantAuthority("ROLE_"+role.toUpperCase()) ;
+    }
+    public void revokeRole(Account account, String role) throws Exception{
+        if(!role.equalsIgnoreCase("admin") &&
+                !role.equalsIgnoreCase("user") &&
+                !role.equalsIgnoreCase("admin")){
+            throw new Exception("Invalid role");
+        }
+        account.revokeAuthority("ROLE_"+role.toUpperCase()) ;
     }
 }

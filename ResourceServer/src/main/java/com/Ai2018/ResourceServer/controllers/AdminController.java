@@ -25,11 +25,23 @@ public class AdminController {
     private AccountService accountService;
 
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+ //   @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(path="/admin/users", produces="application/json")
     public ResponseEntity<?> getUsers() {
         List<Account> users = accountService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping(path="/admin/users/{username}", produces="application/json")
+    public ResponseEntity<?> getUser(
+            @PathVariable String username
+    ) {
+        try {
+            Account user = accountService.findAccountByUsername(username);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(new Error(e.getMessage()), HttpStatus.NOT_FOUND );
+        }
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -38,12 +50,12 @@ public class AdminController {
             @PathVariable String username
     ) {
         List<Archive> result = archiveService.findUserArchives(username);
-        return new ResponseEntity<List<Archive>>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(path="/admin/users/{username}/archives", produces="application/json", method= RequestMethod.DELETE)
+    @RequestMapping(path="/admin/users/{username}/archives/delete", produces="application/json", method= RequestMethod.DELETE)
     public ResponseEntity<?> deleteUserArchives(
             @PathVariable String username
     ) {
@@ -54,14 +66,30 @@ public class AdminController {
 
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping(path="/admin/users/grant/{userId}", produces="application/json")
+    @PostMapping(path="/admin/users/grant/{username}", produces="application/json")
     public ResponseEntity<?> grantRole(
-            @PathVariable String userId,
+            @PathVariable String username,
             @RequestBody List<String> roles) {
         try {
-            Account account = accountService.findAccountById(userId);
+            Account account = accountService.findAccountByUsername(username);
             for(String role : roles){
                 accountService.grantRole(account,role);
+            }
+            return new ResponseEntity<Object>(accountService.update(account), HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<Object>(new Error(e.getMessage()), HttpStatus.NOT_FOUND );
+        }
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(path="/admin/users/{username}/revoke", produces="application/json")
+    public ResponseEntity<?> revokeRole(
+            @PathVariable String username,
+            @RequestBody List<String> roles) {
+        try {
+            Account account = accountService.findAccountByUsername(username);
+            for(String role : roles){
+                accountService.revokeRole(account,role);
             }
             return new ResponseEntity<Object>(accountService.update(account), HttpStatus.OK);
         }
