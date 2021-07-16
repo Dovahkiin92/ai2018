@@ -16,9 +16,10 @@ public class Account implements UserDetails {
     private String id;
     private String username;
     private String password;
+    private double wallet;
     private boolean accountNonExpired, accountNonLocked, credentialsNonExpired, enabled;
     List<GrantedAuthority> authorities;
-
+    List<String> purchasedArchives;
     public Account() {
         this.accountNonExpired = true;
         this.credentialsNonExpired = true;
@@ -74,4 +75,11 @@ public class Account implements UserDetails {
     }
 
     public void setId(long i) { this.id=id;    }
+
+    public void setWallet(double amount){
+        this.wallet=amount;
+    }
+    public double getWallet(){
+        return this.wallet;
+    }
 }

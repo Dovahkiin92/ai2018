@@ -27,7 +27,6 @@ public class AccountController {
     public ResponseEntity<?> register(@RequestBody Account account) {
         try {
             account.grantAuthority("ROLE_USER");
-            account.grantAuthority("ROLE_CUSTOMER");
             return new ResponseEntity<Object>(accountService.register(account), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,6 +16,8 @@ public class Archive {
     private String id;
     private List<Position>  positions;
     private String userId;
+    private int price;
+    private int purchases;
 
     public List<Position> getPositions() {
         return positions;
@@ -33,4 +35,11 @@ public class Archive {
         this.userId = userId;
     }
 
+    public int getPrice() {
+        return this.price;
+    }
+
+    public void addPurchases(int purchases) {
+        this.purchases+=purchases;
+    }
 }

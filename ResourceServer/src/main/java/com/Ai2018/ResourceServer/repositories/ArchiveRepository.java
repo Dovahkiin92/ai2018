@@ -7,11 +7,13 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArchiveRepository extends MongoRepository<Archive, String> {
 
     List<Archive> findAllByUserIdEquals(String userId);
+    Optional< Archive> findById(String id);
     Archive save(Archive archive);
     List<Archive> deleteAllByUserId(String username);
 }
