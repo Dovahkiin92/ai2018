@@ -1,0 +1,8 @@
+ai2018\AuthorizationServer\configuration\AuthorizationServerConfiguration.class
+ai2018\AuthorizationServer\configuration\MongoConfiguration.class
+ai2018\AuthorizationServer\services\AccountService.class
+ai2018\AuthorizationServer\controllers\AccountController.class
+ai2018\AuthorizationServer\AuthorizationServerApplication.class
+ai2018\AuthorizationServer\models\Account.class
+ai2018\AuthorizationServer\repositories\AccountRepository.class
+ai2018\AuthorizationServer\configuration\WebSecurityConfiguration.class
